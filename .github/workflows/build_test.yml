@@ -46,15 +46,15 @@ jobs:
       fail-fast: false
       max-parallel: 2
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        nodejs_version: [24.22, 26.13]
+        os: [ ubuntu-latest, windows-latest ]
+        nodejs_version: [ 24.22, 26.13 ]
         include:
-          - nodejs_version: 22.
+          - nodejs_version: 22
           - os: ubuntu-latest
         exclude:
           - os: windows-latest
-            nodejs_version: [24.22, 26.13]
-    runs-on: ${{matrix.os}}
+            nodejs_version: [ 24.22, 26.13 ]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: checkout repo
         uses: actions/checkout@v7
