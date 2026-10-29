@@ -1,0 +1,77 @@
+name: build and test
+
+on:
+  workflow_dispatch:
+    inputs:
+      testing:
+        description: "Test?"
+        type: boolean
+        required: false
+      which_test?:
+        description: "which test?"
+        type: choice
+        options:
+          - unit
+          - integeration
+          - all
+        required: false
+      environment:
+        description: "environment?"
+        type: environment
+        required: false
+      build_number:
+        description: "build number?"
+        type: string
+        required: false
+      message:
+        description: "any message"
+        type: string
+        required: false       
+
+  push:
+    branches: 
+      - main
+      - feature/*
+      - "!test/**"
+
+env:
+  MONGO_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superData'
+  MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
+  MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}    
+
+jobs:
+  unit-testing:
+    name: unit-testing
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        nodejs_version: [24.22, 26.13]
+        include:
+          - nodejs_version: 22.
+          - os: ubuntu-latest
+        exclude:
+          - os: windows-latest
+            nodejs_version: [24.22, 26.13]
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v7
+    
+      - name: setup node JS version ${{matrix.nodejs_version}} on ${{matrix.os}}
+        uses: actions/setup-node@v7
+        with:
+          node-version: '${{matrix.nodejs_version}}'
+
+      - name: build
+        run: npm install
+
+      - name: test
+        run: npm test
+
+      - name: archive test results
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-results-${{matrix.nodejs_version}}
+          path: test-results.xml
