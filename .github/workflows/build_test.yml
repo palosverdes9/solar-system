@@ -53,7 +53,7 @@ jobs:
           - os: ubuntu-latest
         exclude:
           - os: windows-latest
-            nodejs_version: [ 24.22, 26.13 ]
+            nodejs_version: 26.13
     runs-on: ${{ matrix.os }}
     steps:
       - name: checkout repo
