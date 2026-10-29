@@ -50,7 +50,7 @@ jobs:
         nodejs_version: [ 24.22, 26.13 ]
         include:
           - nodejs_version: 22
-          - os: ubuntu-latest
+            os: ubuntu-latest
         exclude:
           - os: windows-latest
             nodejs_version: 26.13
@@ -70,7 +70,7 @@ jobs:
       - name: test
         run: npm test
 
-      - name: archive test results
+      - name: archive test results! 
         uses: actions/upload-artifact@v7
         with:
           name: test-results-${{matrix.nodejs_version}}
