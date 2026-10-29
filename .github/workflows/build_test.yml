@@ -48,13 +48,15 @@ jobs:
       max-parallel: 2
       matrix:
         os: [ ubuntu-latest, windows-latest ]
-        nodejs_version: [ 24.22, 26 ]
+        nodejs_version: [ 24.22, 22.23 ]
         include:
           - nodejs_version: 22
             os: ubuntu-latest
         exclude:
           - os: windows-latest
-            nodejs_version: 26
+            nodejs_version: 24.22
+          - os: windows-latest
+            nodejs_version: 22.23
     runs-on: ${{ matrix.os }}
     steps:
       - name: checkout repo
