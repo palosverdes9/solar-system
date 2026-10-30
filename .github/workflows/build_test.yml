@@ -82,7 +82,7 @@ jobs:
           retention-days: 1
 
   code-coverage:
-    #needs: unit-testing
+    needs: unit-testing
     timeout-minutes: 10
     name: code-coverage
     runs-on: ubuntu-latest
@@ -103,6 +103,7 @@ jobs:
         run: npm run coverage
 
       - name: archive test results! 
+        if: always()
         uses: actions/upload-artifact@v7
         with:
           name: coverage-${{github.job}}
