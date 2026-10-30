@@ -81,7 +81,7 @@ jobs:
           retention-days: 1
 
   code-coverage:
-    needs: unit-testing
+    #needs: unit-testing
     continue-on-error: true
     timeout-minutes: 10
     name: code-coverage
