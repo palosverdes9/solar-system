@@ -82,7 +82,7 @@ jobs:
 
   code-coverage:
     #needs: unit-testing
-    continue-on-error: true
+    #continue-on-error: true
     timeout-minutes: 10
     name: code-coverage
     runs-on: ubuntu-latest
