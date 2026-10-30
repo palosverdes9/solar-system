@@ -67,6 +67,12 @@ jobs:
         with:
           node-version: '${{matrix.nodejs_version}}'
 
+      - name: cache NPM dependencies
+        uses: actions/cache@v6
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
+
       - name: build
         run: npm install
 
@@ -94,6 +100,12 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: '24'
+
+      - name: cache NPM dependencies
+        uses: actions/cache@v6
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}    
 
       - name: build
         run: npm install
